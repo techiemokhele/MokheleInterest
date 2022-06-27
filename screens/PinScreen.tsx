@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import {
   SafeAreaView,
@@ -8,20 +9,33 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import pins from "../assets/data/pins";
+import Navigation from "../navigation/index";
 
 const PinScreen = () => {
-  const pin = pins[3];
   const [ratio, setRatio] = useState(1);
+
+  const navigation = useNavigation();
+  const route = useRoute();
 
   const insets = useSafeAreaInsets();
 
+  const pinId = route.params?.id;
+  const pin = pins.find((p) => p.id === pinId);
+
   useEffect(() => {
-    if (pin.image) {
+    if (pin?.image) {
       Image.getSize(pin.image, (width, height) => setRatio(width / height));
     }
   }, [pin]);
 
-  const goBack = () => {};
+  const goBack = () => {
+    navigation.goBack();
+  };
+
+  // if pin not found
+  if (!pin) {
+    return <Text>❌ Oops, there nothing to show...</Text>;
+  }
 
   return (
     <SafeAreaView style={{ backgroundColor: "#000" }}>

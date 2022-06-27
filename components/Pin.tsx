@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
 const Pin = (props) => {
   const [ratio, setRatio] = useState(1);
 
   const { image, title } = props.pin;
-
-  const onLike = () => {};
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (image) {
@@ -17,8 +17,18 @@ const Pin = (props) => {
     }
   }, [image]);
 
+  const onLike = () => {
+    return (onclick = () => {
+      return <AntDesign name="hearto" size={16} color="red" />;
+    });
+  };
+
+  const goToPinPage = () => {
+    navigation.navigate("Pin", { id });
+  };
+
   return (
-    <View style={styles.pin}>
+    <Pressable onPress={goToPinPage} style={styles.pin}>
       <View>
         <Image
           source={{
@@ -33,7 +43,7 @@ const Pin = (props) => {
       <Text style={styles.title} numberOfLines={2}>
         {title}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 
@@ -54,7 +64,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   heartBtn: {
-    backgroundColor: "#D3CFD4",
+    backgroundColor: "transparent",
     position: "absolute",
     bottom: 10,
     right: 10,
