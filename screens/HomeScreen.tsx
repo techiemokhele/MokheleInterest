@@ -1,4 +1,4 @@
-import { StyleSheet, Image } from "react-native";
+import { StyleSheet, Image, ScrollView } from "react-native";
 
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
@@ -9,22 +9,24 @@ export default function HomeScreen({
   navigation,
 }: RootTabScreenProps<"TabOne">) {
   return (
-    <View style={styles.container}>
-      <Pin
-        pin={{
-          title: "Mokhele Hoodie",
-          image:
-            "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/0.jpeg",
-        }}
-      />
-      <Pin
-        pin={{
-          title: "Mokhele Hoodie",
-          image:
-            "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/0.jpeg",
-        }}
-      />
-    </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <Pin
+          pin={{
+            title: "Mokhele Hoodie",
+            image:
+              "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/2.jpeg",
+          }}
+        />
+        <Pin
+          pin={{
+            title: "Mokhele Online Course",
+            image:
+              "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/1.jpeg",
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 }
 

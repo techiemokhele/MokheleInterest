@@ -1,16 +1,35 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { useState, useEffect } from "react";
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 const Pin = (props) => {
+  const [ratio, setRatio] = useState(1);
+
   const { image, title } = props.pin;
+
+  const onLike = () => {};
+
+  useEffect(() => {
+    if (image) {
+      Image.getSize(image, (width, height) => {
+        setRatio(width / height);
+      });
+    }
+  }, [image]);
 
   return (
     <View style={styles.pin}>
-      <Image
-        source={{
-          uri: image,
-        }}
-        style={styles.image}
-      />
+      <View>
+        <Image
+          source={{
+            uri: image,
+          }}
+          style={[styles.image, { aspectRatio: ratio }]}
+        />
+        <Pressable onPress={onLike} style={styles.heartBtn}>
+          <AntDesign name="hearto" size={16} color="black" />
+        </Pressable>
+      </View>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
@@ -27,8 +46,15 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: 200,
     borderRadius: 25,
+  },
+  heartBtn: {
+    backgroundColor: "#D3CFD4",
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    padding: 5,
+    borderRadius: 20,
   },
 });
 
