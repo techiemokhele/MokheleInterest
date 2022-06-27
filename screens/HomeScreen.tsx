@@ -1,9 +1,10 @@
-import { StyleSheet, Image, ScrollView } from "react-native";
+import { StyleSheet, Image, ScrollView, FlatList } from "react-native";
 
-import { Text, View } from "../components/Themed";
+import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
 import Pin from "../components/Pin";
+import pins from "../assets/data/pins";
 
 export default function HomeScreen({
   navigation,
@@ -11,20 +12,23 @@ export default function HomeScreen({
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Pin
-          pin={{
-            title: "Mokhele Hoodie",
-            image:
-              "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/2.jpeg",
-          }}
-        />
-        <Pin
-          pin={{
-            title: "Mokhele Online Course",
-            image:
-              "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/pinterest/1.jpeg",
-          }}
-        />
+        {/* first column: even index */}
+        <View style={styles.column}>
+          {pins
+            .filter((_, index) => index % 2 === 0)
+            .map((pin) => (
+              <Pin pin={pin} key={pin.id} />
+            ))}
+        </View>
+
+        {/* second column: odd index */}
+        <View style={styles.column}>
+          {pins
+            .filter((_, index) => index % 2 === 1)
+            .map((pin) => (
+              <Pin pin={pin} key={pin.id} />
+            ))}
+        </View>
       </View>
     </ScrollView>
   );
@@ -32,9 +36,10 @@ export default function HomeScreen({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: "row",
     padding: 10,
+  },
+  column: {
+    flex: 1,
   },
 });
