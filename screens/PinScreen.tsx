@@ -9,7 +9,6 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 import pins from "../assets/data/pins";
-import Navigation from "../navigation/index";
 
 const PinScreen = () => {
   const [ratio, setRatio] = useState(1);
@@ -34,9 +33,33 @@ const PinScreen = () => {
 
   // if pin not found
   if (!pin) {
-    return <Text>❌ Oops, there nothing to show...</Text>;
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Pressable
+          onPress={goBack}
+          style={[
+            styles.backBtn,
+            { top: insets.top + 16, flexDirection: "row" },
+          ]}
+        >
+          <Ionicons name={"chevron-back"} size={35} color={"black"} />
+          <Text style={{ marginTop: 10 }}>Go back</Text>
+        </Pressable>
+        <Image
+          source={require("../assets/images/404.png")}
+          style={{
+            width: "80%",
+            height: "28%",
+            marginTop: -100,
+            marginBottom: 30,
+          }}
+        />
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+          ❌ Oops, there nothing to show...
+        </Text>
+      </View>
+    );
   }
-
   return (
     <SafeAreaView style={{ backgroundColor: "#000" }}>
       <StatusBar style="light" />

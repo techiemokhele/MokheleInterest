@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import Navigation from "../navigation/index";
 
 const Pin = (props) => {
+  const { id, image, title } = props.pin;
+
   const [ratio, setRatio] = useState(1);
 
-  const { image, title } = props.pin;
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -18,9 +20,7 @@ const Pin = (props) => {
   }, [image]);
 
   const onLike = () => {
-    return (onclick = () => {
-      return <AntDesign name="hearto" size={16} color="red" />;
-    });
+    return <AntDesign name="hearto" size={16} color="red" />;
   };
 
   const goToPinPage = () => {
